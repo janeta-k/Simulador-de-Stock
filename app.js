@@ -1,31 +1,51 @@
 //tienda de electrónicos
+const cardProductos = document.getElementById('cardProductos');
 
-class Stock{
-    constructor(id, nombre, precio, stock){
+class Producto {
+    constructor(id, nombre, precio, stock, img) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
         this.stock = stock;
+        this.img = img;
     }
 }
 
-class ProductoController{
-    constructor(){
+class ProductoController {
+    constructor() {
         this.listaDeProductos = []
     }
 
-    obtenerProductos(){
+    obtenerProductos() {
         this.listaDeProductos = [
-            new Stock(1, "Ventilador", "$50.000", 10),
-            new Stock(2, "Televisón", "$150.000", 2),
-            new Stock(3, "Aspiradora", "$50.000", 5),
-            new Stock(4, "Refrigerador", "$180.000", 0),
-            new Stock(5, "Microondas", "$90.000", 15),
-            new Stock(6, "Lavadora", "$120.000", 3)
+            new Producto(1, "Ventilador", "$50.000", 10, "./img/ventilador.PNG"),
+            new Producto(2, "Televisón", "$150.000", 2, "./img/tele.PNG"),
+            new Producto(3, "Aspiradora", "$50.000", 5, "./img/aspiradora.PNG"),
+            new Producto(4, "Refrigerador", "$180.000", 0, "./img/refrigerador.PNG"),
+            new Producto(5, "Microondas", "$90.000", 15, "./img/microondas.PNG"),
+            new Producto(6, "Lavadora", "$120.000", 3, "./img/lavadora.PNG")
         ]
     }
 
-    mostrarProductos(){
+    imprimirCards(listaDeproductos) {
+
+        cardProductos.innerHTML = "";
+
+        listaDeproductos.forEach(element => {
+            // const card = document.createElement('div');
+            // card.classList = 'card-body';
+            const content = `<div class="card " style="width: 18rem;">
+        <img class="card-img-top" src="${element.img}"  alt="${element.nombre}">
+        <div class="card-body ">
+          <h5 class="card-title"> ${element.nombre}</h5>
+          <p class="card-text"> ${element.precio}</p>
+        </div>
+      </div>`;
+            cardProductos.innerHTML += content;
+        })
+    }
+
+    dataProductos() {
         let acumulador = ""
         this.listaDeProductos.forEach(element => {
             acumulador += `\n- ID : ${element.id}\n- Producto: ${element.nombre}\n- Precio: ${element.precio}\n`
@@ -33,11 +53,27 @@ class ProductoController{
         return alert(acumulador)
     }
 
-    mostrarStock(){
-        
+    mostrarStock(id) {
+        let producto = this.listaDeProductos.find(element => element.id == id)
+        console.log(producto)
+        if (producto.stock >= 10)
+            alert(`El producto ${producto.nombre} tiene ${producto.stock} de stock.\nTodo tranqui B)`);
+        else if (producto.stock < 10 && producto.stock >= 5) {
+            alert(`El producto ${producto.nombre} tiene ${producto.stock} de stock.\nYa queda poco para que se acabe!!`);
+        } else if (producto.stock < 5 && producto.stock > 0) {
+            alert(`El producto ${producto.nombre} tiene ${producto.stock} de stock.\nUy, nos quedamos sin stock!!`);
+        } else {
+            alert(`El producto  ${producto.nombre} tiene ${producto.stock} de stock.\nYa no queda nada :c`);
+        }
     }
+}
 
+function eventos(){
+    controladorProductos.dataProductos()
     
+    let id = Number(prompt("Ingresa el ID del producto que deseas revisar su stock :)"))
+    controladorProductos.mostrarStock(id)
+
 }
 
 const controladorProductos = new ProductoController();
@@ -45,19 +81,9 @@ const controladorProductos = new ProductoController();
 controladorProductos.obtenerProductos()
 console.log(controladorProductos.listaDeProductos)
 
-controladorProductos.mostrarProductos()
+//controladorProductos.dataProductos()
+controladorProductos.imprimirCards(controladorProductos.listaDeProductos)
 
+// let id = Number(prompt("Ingresa el ID del producto que deseas revisar su stock :)"))
+// controladorProductos.mostrarStock(id)
 
-// stockProductos(){
-//     this.listaDeProductos.forEach(element => {
-//         if(element.stock >= 10)
-//         console.log(`${element.nombre} tiene ${element.stock} de stock. Todo tranqui B)`);
-//         else if(element.stock < 10 && element.stock >= 5) {
-//             console.log(`${element.nombre} tiene ${element.stock} de stock. Ya queda poco para que se acabe!!`);
-//         }else if(element.stock < 5 && element.stock > 0){
-//             console.log(`${element.nombre} tiene ${element.stock} de stock. Uy, nos quedamos sin stock!!`);
-//         }else {
-//             console.log(`${element.nombre} tiene ${element.stock} de stock. Ya no queda nada :c`);
-//         }
-//     })
-// }
