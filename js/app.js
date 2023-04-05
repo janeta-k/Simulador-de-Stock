@@ -32,21 +32,18 @@ class ProductoController {
         cardProductos.innerHTML = "";
 
         listaDeproductos.forEach(element => {
-            // const card = document.createElement('div');
-            // card.classList = 'card-body';
-            const content = `<div class="card " style="width: 18rem;">
-        <img class="card-img-top" src="${element.img}"  alt="${element.nombre}">
-        <div class="card-body ">
-          <h5 class="card-title"> ${element.nombre}</h5>
-          <p class="card-text"> ${element.precio}</p>
-        </div>
-      </div>`;
+            const content = `<div class="card card-padding mt-3" style="width: 18rem;">
+            <img src="${element.img}" class="card-img-top" alt="${element.nombre}">
+            <div class="card-body text-center">
+              <p class="card-text">${element.nombre}</p>
+              <p class="card-text"> ${element.precio}</p>
+            </div>`;
             cardProductos.innerHTML += content;
         })
     }
 
     dataProductos() {
-        let acumulador = ""
+        let acumulador = "" //podría ocupar un bucle aquí, pq hay que incluir bucles pipipi
         this.listaDeProductos.forEach(element => {
             acumulador += `\n- ID : ${element.id}\n- Producto: ${element.nombre}\n- Precio: ${element.precio}\n`
         });
@@ -70,10 +67,9 @@ class ProductoController {
 
 function eventos(){
     controladorProductos.dataProductos()
-    
+
     let id = Number(prompt("Ingresa el ID del producto que deseas revisar su stock :)"))
     controladorProductos.mostrarStock(id)
-
 }
 
 const controladorProductos = new ProductoController();
@@ -81,9 +77,7 @@ const controladorProductos = new ProductoController();
 controladorProductos.obtenerProductos()
 console.log(controladorProductos.listaDeProductos)
 
-//controladorProductos.dataProductos()
 controladorProductos.imprimirCards(controladorProductos.listaDeProductos)
 
-// let id = Number(prompt("Ingresa el ID del producto que deseas revisar su stock :)"))
-// controladorProductos.mostrarStock(id)
+
 

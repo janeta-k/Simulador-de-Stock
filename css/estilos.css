@@ -1,0 +1,23 @@
+body {
+    margin: 20px;
+}
+
+#cardProductos {
+    display: flex;
+    justify-content: space-around;
+    align-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card-padding {
+    padding: 20px;
+}
+
+.card-img-top{
+    height: 70%;
+}
+
+.boton {
+    display: flex;
+    justify-content: center;
+}
